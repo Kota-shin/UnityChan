@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GoaiManager : MonoBehaviour
 {
 
     [Header("プレイヤー")]public GameObject player;
     [Header("テキスト")]public GameObject text;
+
+    private bool isGoal = false;
 
     void Start()
     {
@@ -17,7 +20,10 @@ public class GoaiManager : MonoBehaviour
 
     void Update()
     {
-       
+       if(isGoal && Input.GetMouseButton(0))
+        {
+            Restart();
+        }
     }
 
 
@@ -28,10 +34,20 @@ public class GoaiManager : MonoBehaviour
     {
         if(other.name == player.name)
         {
-            text.GetComponent<Text>().text = "Goal!!";
-            text.SetActive(true);    
-            Debug.Log("何かがせっしょくした");
+            //テキストの内容変更
+            text.GetComponent<Text>().text = "Goal!!\n画面クリックで再スタート";
+            //テキストをオンにし非表示→表示
+            text.SetActive(true);
+            isGoal = true;
         }
+    }
+
+    private void Restart()
+    {
+        //現在のScene名を取得
+        Scene loadScene = SceneManager.GetActiveScene();
+        //Sceeneの読み直し
+        SceneManager.LoadScene(loadScene.name); 
     }
     
 }
