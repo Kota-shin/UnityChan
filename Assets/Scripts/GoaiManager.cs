@@ -10,7 +10,12 @@ public class GoaiManager : MonoBehaviour
     [Header("プレイヤー")]public GameObject player;
     [Header("テキスト")]public GameObject text;
 
+
+    //プライベート変数
     private bool isGoal = false;
+
+    //RestartManager型
+    private RestartManager restart;
 
     void Start()
     {
@@ -22,7 +27,7 @@ public class GoaiManager : MonoBehaviour
     {
        if(isGoal && Input.GetMouseButton(0))
         {
-            Restart();
+            restart.Restart();
         }
     }
 
