@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityChan;
 
 public class GoaiManager : MonoBehaviour
 {
 
     [Header("プレイヤー")]public GameObject player;
     [Header("テキスト")]public GameObject text;
+    
 
 
     //プライベート変数
@@ -19,7 +21,9 @@ public class GoaiManager : MonoBehaviour
 
     void Start()
     {
-        
+        //インスタンス設定
+        restart = new RestartManager(player, text);
+       
     }
 
 
@@ -28,6 +32,7 @@ public class GoaiManager : MonoBehaviour
        if(isGoal && Input.GetMouseButton(0))
         {
             restart.Restart();
+
         }
     }
 
@@ -44,6 +49,13 @@ public class GoaiManager : MonoBehaviour
             //テキストをオンにし非表示→表示
             text.SetActive(true);
             isGoal = true;
+
+            //プレイヤーを動かなくする
+            player.GetComponent<UnityChanControlScriptWithRgidBody>().enabled = false;
+            //アニメーションをオフ
+            player.GetComponent<Animator>().enabled = false;
+
+
         }
     }
 

@@ -15,11 +15,16 @@ public class TimeManager : MonoBehaviour
     private bool isGameOver = false;
     //RestartManager型
     private RestartManager restart;
+    private GoaiManager goal;
+    //プライベート変数
+    private bool isGoal = false;
+
 
     void Start()
     {
         //インスタンス設定
         restart = new RestartManager(player, text);
+        goal = new GoaiManager();
         //初期時間の設定
         timeText.text = "残り時間" + limit + "秒";
     }
@@ -44,5 +49,13 @@ public class TimeManager : MonoBehaviour
         //時間をカウントダウン
         limit -= Time.deltaTime;
         timeText.text = "残り時間" + limit.ToString("f1") + "秒";
+
+        //if (limit > 0 && isGoal == true)
+        //{
+        //    Time.timeScale = 0;
+        //}
+
     }
+
+    
 }
